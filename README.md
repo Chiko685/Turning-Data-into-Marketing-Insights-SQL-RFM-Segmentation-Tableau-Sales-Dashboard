@@ -2,7 +2,7 @@
 
 ## 📁 Project Overview
 
-This end-to-end Marketing Analytics project integrates SQL-based customer segmentation (RFM Analysis) with an interactive Tableau Sales Dashboard to unlock insights into customer behavior, sales trends, product performance, and market dynamics.
+This Marketing Analytics project integrates SQL-based customer segmentation (RFM Analysis) with an interactive Tableau Sales Dashboard to unlock insights into customer behavior, sales trends, product performance, and market dynamics.
 
 The goal is to transform raw transactional data into actionable insights that support data-driven marketing decisions.
 
