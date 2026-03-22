@@ -1,116 +1,119 @@
-# 📊 Turning Data into Marketing Insights -- SQL RFM Segmentation + Tableau Sales Dashboard
+# 📊 A/B Testing Campaign Analysis — Tableau Dashboard
 
-## 📁 Project Overview
+A Tableau-based A/B testing analysis comparing two ad campaigns (**Campaign A: Control** vs **Campaign B: Test**) across spend, conversions, funnel performance, and cost efficiency.
 
-This Marketing Analytics project integrates SQL-based customer segmentation (RFM Analysis) with an interactive Tableau Sales Dashboard to unlock insights into customer behavior, sales trends, product performance, and market dynamics.
+---
 
-The goal is to transform raw transactional data into actionable insights that support data-driven marketing decisions.
+## 🗂️ Project Overview
 
-## 📌 Objectives
+This project analyzes marketing campaign performance using A/B testing methodology. The dashboard was built in Tableau and covers:
 
-1. Identify high-value customers using RFM (Recency, Frequency, Monetary) segmentation.
+- Total spend & purchase comparison
+- Cost efficiency metrics (CPM, CPC, CTR)
+- Conversion rate breakdown across the funnel
+- Daily spend trends
+- Full funnel analysis (Impressions → Purchases)
 
-2. Analyze sales performance across countries, product lines, and years.
+---
 
-3. Evaluate order fulfillment efficiency through order status breakdown.
+## 📈 Key Findings
 
-4. Build an interactive Tableau dashboard for monitoring sales KPIs.
+### 🏆 Winner: Campaign B (Test Campaign)
 
-| Category         | Technology                                                  |
-| ---------------- | ----------------------------------------------------------- |
-| Database & Query | **SQL**                                                     |
-| Analytics Model  | **RFM Analysis**                                            |
-| Visualization    | **Tableau**                                                 |
-| Skills           | Data Prep, Segmentation, Trend Analysis, Marketing Insights |
+| Metric | Campaign A (Control) | Campaign B (Test) |
+|---|---|---|
+| Total Spend | $68,653 | $76,892 |
+| Total Purchases | 15,161 | 15,637 |
+| Cost per Purchase | $4.53 | $4.92 |
+| Overall Conversion Rate | 0.48% | **0.70%** |
 
+> **Campaign B achieved a 46% higher overall conversion rate** despite a slightly higher cost per purchase.
 
-## 🧹 Data Preparation (SQL)
+---
 
-SQL was used to:
+## 💰 Cost Analysis
 
-      1. Clean and transform raw data
-      2. Aggregate sales by country, product, and year
-      3. Calculate Recency, Frequency, and Monetary value
-      4. Create the RFM segmentation table
-      5. Join, filter, and optimize data for Tableau
+| Metric | Campaign A | Campaign B |
+|---|---|---|
+| CPM | $22 | $34 |
+| CPC | $0.44 | $0.42 |
+| CTR | 4.86% | **8.09%** |
 
-Example operations include:
+- Campaign B's CTR is nearly **double** that of Campaign A, indicating its content was significantly more engaging.
+- Despite a higher CPM, Campaign B's lower CPC shows it attracted higher-quality clicks.
 
-<img width="781" height="386" alt="Screenshot 2026-03-12 at 23 55 22" src="https://github.com/user-attachments/assets/37e19898-e9c6-4aa0-bb09-e42976368b4e" />
+---
 
-<img width="781" height="540" alt="Screenshot 2026-03-12 at 23 56 40" src="https://github.com/user-attachments/assets/66f5c24c-0685-4c0b-b064-417c0de46472" />
+## 🔄 Conversion Rate Breakdown
 
-<img width="781" height="483" alt="Screenshot 2026-03-12 at 23 57 06" src="https://github.com/user-attachments/assets/c934292c-ae2e-4683-ae15-eba43cfdb5a8" />
+| Metric | Campaign A | Campaign B |
+|---|---|---|
+| Content View Rate | 36.53% | 30.80% |
+| Cost per Add to Cart | $1.82 | $2.91 |
+| Search Rate | 41.75% | 40.10% |
+| Add to Cart Rate | **66.88%** | 47.45% |
+| Purchase Rate | 40.21% | **59.13%** |
 
-<img width="990" height="625" alt="Screenshot 2026-03-13 at 00 03 49" src="https://github.com/user-attachments/assets/7d7f6aec-14f7-4a87-a0f5-8428635036be" />
+**Key Insight:** While Campaign A drove more users to add items to cart, Campaign B converted those users into buyers at a much higher rate (59.13% vs 40.21%). Campaign B traffic was more **"ready to buy."**
 
-## 🎯 RFM Segmentation
+---
 
-Using SQL, customers were assigned into segments:
+## 🔽 Funnel Analysis
 
-    1. Champions
-    2. Loyal Customers
-    3. Potential Loyalists
-    4. Need Attention
-    5. At Risk
-    6. Hibernating
-    7. Lost Customers
+| Funnel Stage | Campaign A | Campaign B |
+|---|---|---|
+| Impressions/Reach | 3,177,233 | 2,237,544 |
+| Content Views | 2,576,503 | 1,604,747 |
+| Searches | 154,303 | 180,970 |
+| Add to Cart | 64,418 | 72,569 |
+| Initiated Checkout | 56,370 | 55,740 |
+| Purchases | 37,700 | 26,446 |
 
-These segments help marketers tailor retention strategies and optimize customer lifetime value (CLV).
+- Campaign A had broader **top-of-funnel reach** but suffered from high drop-off, suggesting lower audience quality.
+- Campaign B reached **fewer people but with higher intent**, resulting in more searches and add-to-cart actions relative to its audience size.
 
-### 📈 Sales Trend Analysis (2003–2005)
-### ⭐ Strong Growth in 2004
+---
 
-Almost all product lines experienced significant growth:
+## 📅 Daily Spend Trends
 
-| Product Line   | 2003   | 2004   | Growth %    |
-| -------------- | ------ | ------ | ----------- |
-| Classic Cars   | $1.48M | $1.76M | **+18.69%** |
-| Motorcycles    | $370K  | $560K  | **+51.13%** |
-| Planes         | $272K  | $502K  | **+84.63%** |
-| Ships          | $244K  | $341K  | **+39.46%** |
-| Trucks & Buses | $420K  | $529K  | **+25.90%** |
-| Vintage Cars   | $650K  | $911K  | **+40.01%** |
-| Trains         | $72K   | $116K  | **+59.75%** |
+Both campaigns showed fluctuating daily spend patterns throughout the campaign period:
 
+- **Campaign A** daily spend ranged from ~$1,757 to ~$3,083
+- **Campaign B** daily spend ranged from ~$1,968 to ~$3,112
 
-# ➡️ 2004 was the peak revenue year, indicating strong demand and effective sales strategy.
+---
 
-📉 Drop in 2005
+## 🛠️ Tools Used
 
-Revenue decreases across all product lines (~58–68%) are due to partial-year data (only first 5 months), confirmed via the monthly sales chart in Tableau.
+- **Tableau** — Dashboard design and data visualization
+- **Data Source** — Ad campaign performance metrics
 
-## 📊 Dashboard Insights
-1. Country-Level Sales
+---
 
-        * The United States is the top revenue contributor.
+## 📁 Repository Structure
 
-        * Helps prioritize high-performing markets and allocate marketing resources.
+```
+├── README.md
+├── /dashboard
+│   ├── Cost_Conversion_Analysis.png
+│   └── Funnel_Comparison.png
+└── /data
+    └── campaign_data.csv       # (if applicable)
+```
 
-2. Order Status Efficiency
+---
 
-       * Shipped orders dominate → strong operational performance.
+## 🚀 How to Use
 
-        * On Hold, Cancelled, and Disputed orders indicate areas for process improvement.
+1. Clone this repository
+2. Open the Tableau workbook (`.twbx`) in Tableau Desktop or Tableau Public
+3. Connect to your data source or use the sample data provided
+4. Explore the dashboard filters to drill down by campaign, date range, or funnel stage
 
-3. Product Line Performance
+---
 
-        * Classic Cars is the best-selling category.
+## 📌 Conclusions & Recommendations
 
-        * Medium-sized deals generate the highest revenue.
-   
-        * We should also pay attention to Productline = "Planes", knowing that those also contributed to a high percentage of sales from 2003-2004
-
-5. Revenue Trend Over Time
-
-        * Strong growth in 2004
-
-        * Lower revenue in 2005 due to partial data
-
-        * Useful for forecasting and KPI tracking
-
-
-## 📊 Tableau Dashboards
-<img width="1402" height="590" alt="Screenshot 2026-03-13 at 00 06 35" src="https://github.com/user-attachments/assets/bb26f2f8-4a7d-4e5c-8bdc-8ada8bdc0a00" />
-
-<img width="1402" height="590" alt="Screenshot 2026-03-13 at 00 07 10" src="https://github.com/user-attachments/assets/5dbaa1e6-7212-4582-a207-7022cefc7f62" />
+1. **Scale Campaign B** — Its higher conversion rate and lower CPC make it the more efficient campaign for driving purchases.
+2. **Investigate Cart Drop-off in Campaign B** — Despite a lower Add to Cart rate, purchase conversion is strong. Optimizing the cart experience could further boost results.
+3. **Audience Quality > Audience Size** — Campaign B's smaller but more targeted audience outperformed Campaign A's broader reach, reinforcing the value of precise targeting.
