@@ -1,4 +1,4 @@
-# 🚗 Sales Analytics & RFM Customer Segmentation
+# 🚗 
 
 An end-to-end sales analytics project combining **PostgreSQL** for data analysis and **Tableau** for interactive dashboards. The project analyzes sales performance across product lines, countries, and customer segments using RFM (Recency, Frequency, Monetary) analysis.
 
@@ -12,8 +12,7 @@ An end-to-end sales analytics project combining **PostgreSQL** for data analysis
 - [SQL Queries](#sql-queries)
 - [Tech Stack](#tech-stack)
 - [Dataset](#dataset)
-- [How to Run](#how-to-run)
-- [Project Structure](#project-structure)
+
 
 ---
 
@@ -43,7 +42,8 @@ This project answers key business questions:
 
 **Filters:** Country, Product Line, Revenue Status
 
-![Sales Dashboard 1](images/Sales_Dashboard_1.png)
+![Sales Dashboard 1]
+<img width="1403" height="580" alt="Screenshot 2026-03-13 at 00 16 04" src="https://github.com/user-attachments/assets/89beab43-25ee-4e22-982a-b6004dc0f2a9" />
 
 ---
 
@@ -58,7 +58,8 @@ This project answers key business questions:
 
 **Filters:** Country
 
-![Sales Dashboard 2](images/Sales_Dashboard_2.png)
+![Sales Dashboard 2]
+<img width="1403" height="577" alt="Screenshot 2026-03-13 at 00 15 21" src="https://github.com/user-attachments/assets/c94a137e-b04f-4714-aab2-737fe52b96ce" />
 
 ---
 
