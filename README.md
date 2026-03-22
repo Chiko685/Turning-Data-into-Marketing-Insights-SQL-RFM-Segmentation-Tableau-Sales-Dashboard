@@ -1,119 +1,235 @@
-# 📊 A/B Testing Campaign Analysis — Tableau Dashboard
+# 🚗 Sales Analytics & RFM Customer Segmentation
 
-A Tableau-based A/B testing analysis comparing two ad campaigns (**Campaign A: Control** vs **Campaign B: Test**) across spend, conversions, funnel performance, and cost efficiency.
+An end-to-end sales analytics project combining **PostgreSQL** for data analysis and **Tableau** for interactive dashboards. The project analyzes sales performance across product lines, countries, and customer segments using RFM (Recency, Frequency, Monetary) analysis.
+
+---
+
+## 📌 Table of Contents
+
+- [Project Overview](#project-overview)
+- [Dashboards](#dashboards)
+- [RFM Analysis](#rfm-analysis)
+- [SQL Queries](#sql-queries)
+- [Tech Stack](#tech-stack)
+- [Dataset](#dataset)
+- [How to Run](#how-to-run)
+- [Project Structure](#project-structure)
 
 ---
 
 ## 🗂️ Project Overview
 
-This project analyzes marketing campaign performance using A/B testing methodology. The dashboard was built in Tableau and covers:
+This project answers key business questions:
 
-- Total spend & purchase comparison
-- Cost efficiency metrics (CPM, CPC, CTR)
-- Conversion rate breakdown across the funnel
-- Daily spend trends
-- Full funnel analysis (Impressions → Purchases)
+- 📦 Which **product lines** generate the most revenue?
+- 🌍 Which **countries** contribute the most to sales?
+- 📅 What was the **best month/year** for sales?
+- 👤 Who are the **best customers**? (via RFM Analysis)
+- 🔄 What is the **deal size distribution** across sales?
 
 ---
 
-## 📈 Key Findings
+## 📊 Dashboards
 
-### 🏆 Winner: Campaign B (Test Campaign)
+### Dashboard 1 — Sales Overview
 
-| Metric | Campaign A (Control) | Campaign B (Test) |
+| Chart | Description |
+|---|---|
+| **Revenue by Product Line** | Bubble chart showing revenue contribution per product category |
+| **Dealsize by Sales** | Bar chart comparing Large / Medium / Small deal sizes |
+| **Revenue by Status** | Bubble chart breaking down order status (Shipped, Cancelled, etc.) |
+| **Sales by Productline** | Line chart showing yearly trend per product line (2003–2005) |
+| **Monthly Sales by Country** | Area chart showing monthly revenue trend per year |
+
+**Filters:** Country, Product Line, Revenue Status
+
+![Sales Dashboard 1](images/Sales_Dashboard_1.png)
+
+---
+
+### Dashboard 2 — Sales Distribution
+
+| Chart | Description |
+|---|---|
+| **Sales by Country** | Treemap showing revenue proportion per country |
+| **Quantity Distribution** | Line chart showing distribution of quantity ordered |
+| **Customer Distribution by Country** | Bar chart of top customers by sales value |
+| **Sales Distribution** | Histogram of sales value frequency |
+
+**Filters:** Country
+
+![Sales Dashboard 2](images/Sales_Dashboard_2.png)
+
+---
+
+## 👥 RFM Analysis
+
+RFM segmentation was performed using **PostgreSQL** with `NTILE(4)` window functions to score customers across 3 dimensions:
+
+| Dimension | Description |
+|---|---|
+| **R — Recency** | How recently did the customer purchase? |
+| **F — Frequency** | How often do they purchase? |
+| **M — Monetary** | How much do they spend in total? |
+
+### Customer Segments (8 Segments)
+
+| # | Segment | RFM Criteria |
 |---|---|---|
-| Total Spend | $68,653 | $76,892 |
-| Total Purchases | 15,161 | 15,637 |
-| Cost per Purchase | $4.53 | $4.92 |
-| Overall Conversion Rate | 0.48% | **0.70%** |
+| 1 | 🏆 **Champions** | R=1, F≥3, M≥3 |
+| 2 | 💛 **Loyal** | R=1, F≥3, M≤2 OR F=2, M≥3 |
+| 3 | 🌱 **Potential Loyalists** | R=1, F=2, M=2–3 |
+| 4 | 🌟 **Promising** | R=2 |
+| 5 | ⚠️ **Need Attention** | R=3, F≤2 |
+| 6 | 🔴 **At Risk** | R=3, F≥3 |
+| 7 | 😴 **Hibernating** | R=4, F≤2 |
+| 8 | ❌ **Lost** | R=4, F≥3 |
 
-> **Campaign B achieved a 46% higher overall conversion rate** despite a slightly higher cost per purchase.
+### Sample Output
 
----
-
-## 💰 Cost Analysis
-
-| Metric | Campaign A | Campaign B |
-|---|---|---|
-| CPM | $22 | $34 |
-| CPC | $0.44 | $0.42 |
-| CTR | 4.86% | **8.09%** |
-
-- Campaign B's CTR is nearly **double** that of Campaign A, indicating its content was significantly more engaging.
-- Despite a higher CPM, Campaign B's lower CPC shows it attracted higher-quality clicks.
+| Customer | RFM Recency | RFM Frequency | RFM Monetary | Segment |
+|---|---|---|---|---|
+| Australian Collectables, Ltd | 1 | 2 | 1 | CHAMPIONS |
+| Gifts4AllAges.com | 1 | 3 | 2 | CHAMPIONS |
+| Mini Gifts Distributors Ltd | 1 | 4 | 4 | POTENTIAL_LOYALIST |
 
 ---
 
-## 🔄 Conversion Rate Breakdown
+## 🛢️ SQL Queries
 
-| Metric | Campaign A | Campaign B |
-|---|---|---|
-| Content View Rate | 36.53% | 30.80% |
-| Cost per Add to Cart | $1.82 | $2.91 |
-| Search Rate | 41.75% | 40.10% |
-| Add to Cart Rate | **66.88%** | 47.45% |
-| Purchase Rate | 40.21% | **59.13%** |
+### Best Sales Month
 
-**Key Insight:** While Campaign A drove more users to add items to cart, Campaign B converted those users into buyers at a much higher rate (59.13% vs 40.21%). Campaign B traffic was more **"ready to buy."**
-
----
-
-## 🔽 Funnel Analysis
-
-| Funnel Stage | Campaign A | Campaign B |
-|---|---|---|
-| Impressions/Reach | 3,177,233 | 2,237,544 |
-| Content Views | 2,576,503 | 1,604,747 |
-| Searches | 154,303 | 180,970 |
-| Add to Cart | 64,418 | 72,569 |
-| Initiated Checkout | 56,370 | 55,740 |
-| Purchases | 37,700 | 26,446 |
-
-- Campaign A had broader **top-of-funnel reach** but suffered from high drop-off, suggesting lower audience quality.
-- Campaign B reached **fewer people but with higher intent**, resulting in more searches and add-to-cart actions relative to its audience size.
-
----
-
-## 📅 Daily Spend Trends
-
-Both campaigns showed fluctuating daily spend patterns throughout the campaign period:
-
-- **Campaign A** daily spend ranged from ~$1,757 to ~$3,083
-- **Campaign B** daily spend ranged from ~$1,968 to ~$3,112
-
----
-
-## 🛠️ Tools Used
-
-- **Tableau** — Dashboard design and data visualization
-- **Data Source** — Ad campaign performance metrics
-
----
-
-## 📁 Repository Structure
-
-```
-├── README.md
-├── /dashboard
-│   ├── Cost_Conversion_Analysis.png
-│   └── Funnel_Comparison.png
-└── /data
-    └── campaign_data.csv       # (if applicable)
+```sql
+SELECT DISTINCT "MONTH_ID" AS MONTH,
+  SUM("SALES") AS REVENUE,
+  COUNT("ORDERNUMBER") AS TOTAL_NUMBER_ORDER,
+  "PRODUCTLINE"
+FROM sales_data_sample
+WHERE "YEAR_ID" = 2004 AND "MONTH_ID" = 11
+GROUP BY 1, 4
+ORDER BY 2 DESC, 1 ASC;
 ```
 
+### RFM Segmentation
+
+```sql
+DROP TABLE IF EXISTS RFM_TEMP;
+
+CREATE TEMP TABLE RFM_TEMP AS
+WITH RFM AS (
+  SELECT
+    "CUSTOMERNAME",
+    SUM("SALES")        AS TOTAL_MONETARY,
+    AVG("SALES")        AS AVG_MONETARY,
+    COUNT("ORDERNUMBER") AS FREQUENCY,
+    MAX("ORDERDATE")    AS LAST_ORDER_DATE,
+    (SELECT MAX("ORDERDATE"::DATE) FROM sales_data_sample)
+      - MAX("ORDERDATE"::DATE) AS RECENCY
+  FROM sales_data_sample
+  GROUP BY 1
+  ORDER BY RECENCY DESC
+),
+RFM_CALC AS (
+  SELECT *,
+    NTILE(4) OVER (ORDER BY RECENCY)        AS RFM_RECENCY,
+    NTILE(4) OVER (ORDER BY FREQUENCY)      AS RFM_FREQUENCY,
+    NTILE(4) OVER (ORDER BY TOTAL_MONETARY) AS RFM_MONETARY
+  FROM RFM
+)
+SELECT *,
+  RFM_RECENCY + RFM_FREQUENCY + RFM_MONETARY AS RFM_TOTAL,
+  CAST(RFM_RECENCY  AS VARCHAR)
+    || CAST(RFM_FREQUENCY AS VARCHAR)
+    || CAST(RFM_MONETARY  AS VARCHAR) AS RFM_CELL
+FROM RFM_CALC;
+```
+
+### Customer Segment Assignment
+
+```sql
+SELECT "CUSTOMERNAME", "rfm_cell",
+  CASE
+    WHEN rfm_cell IN ('131','132','133','134','141','142','143','144') THEN 'CHAMPIONS'
+    WHEN rfm_cell IN ('121','122','123','124','111','112','113','114') THEN 'LOYAL'
+    WHEN rfm_cell IN ('231','232','233','234')                         THEN 'POTENTIAL_LOYALISTS'
+    WHEN rfm_cell IN ('211','212','213','214','221','222','223','224') THEN 'PROMISING'
+    WHEN rfm_cell IN ('311','312','313','314','321','322','323','324') THEN 'NEED_ATTENTION'
+    WHEN rfm_cell IN ('331','332','333','334','341','342','343','344') THEN 'AT_RISK'
+    WHEN rfm_cell IN ('411','412','413','414','421','422','423','424') THEN 'HIBERNATING'
+    WHEN rfm_cell IN ('431','432','433','434','441','442','443','444') THEN 'LOST'
+  END AS rfm_segment
+FROM RFM_TEMP;
+```
+
 ---
 
-## 🚀 How to Use
+## 🛠️ Tech Stack
 
-1. Clone this repository
-2. Open the Tableau workbook (`.twbx`) in Tableau Desktop or Tableau Public
-3. Connect to your data source or use the sample data provided
-4. Explore the dashboard filters to drill down by campaign, date range, or funnel stage
+| Tool | Usage |
+|---|---|
+| **PostgreSQL** | Data storage & SQL analysis |
+| **DBeaver** | SQL IDE for query development |
+| **Tableau Public** | Interactive dashboard visualization |
 
 ---
 
-## 📌 Conclusions & Recommendations
+## 📁 Dataset
 
-1. **Scale Campaign B** — Its higher conversion rate and lower CPC make it the more efficient campaign for driving purchases.
-2. **Investigate Cart Drop-off in Campaign B** — Despite a lower Add to Cart rate, purchase conversion is strong. Optimizing the cart experience could further boost results.
-3. **Audience Quality > Audience Size** — Campaign B's smaller but more targeted audience outperformed Campaign A's broader reach, reinforcing the value of precise targeting.
+- **Table:** `sales_data_sample`
+- **Database:** PostgreSQL (`RFM analysis` schema)
+- **Key Columns:**
+
+| Column | Description |
+|---|---|
+| `CUSTOMERNAME` | Customer name |
+| `SALES` | Order value |
+| `ORDERNUMBER` | Unique order ID |
+| `ORDERDATE` | Date of order |
+| `PRODUCTLINE` | Product category |
+| `COUNTRY` | Customer country |
+| `MONTH_ID` | Month of order |
+| `YEAR_ID` | Year of order |
+| `DEALSIZE` | Deal size (Small / Medium / Large) |
+| `STATUS` | Order status |
+
+---
+
+## ▶️ How to Run
+
+### 1. Setup Database
+
+```bash
+# Create database in PostgreSQL
+createdb "RFM analysis"
+
+# Import dataset
+psql -d "RFM analysis" -f sales_data_sample.sql
+```
+
+### 2. Run SQL Analysis
+
+Open **DBeaver** and connect to:
+
+```
+Host     : localhost
+Port     : 5433
+Database : RFM analysis
+Schema   : public
+```
+
+Run queries in this order:
+1. `exploratory_analysis.sql` — Basic sales exploration
+2. `rfm_analysis.sql` — RFM segmentation
+
+### 3. View Dashboards
+
+Open Tableau Public and connect the workbook to your PostgreSQL database,  
+or view the published dashboards via the Tableau Public link below.
+
+> 🔗 [View on Tableau Public](#) ← *(https://public.tableau.com/views/RFMAnalysis_17732423993690/SalesDash2?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)*
+
+---
+
+## 📬 Contact
+
+Feel free to connect if you have questions or feedback about this project!
